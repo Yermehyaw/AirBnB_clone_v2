@@ -1,17 +1,25 @@
 <center> <h1>HBNB - The Console</h1> </center>
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
-It also contains a webstatic application made uaing HTML and CSS for frontend interface.
+This repository contains the initial stage of a student project to build a clone of the AirBnB website.
+
+This stage implements a backend and a mini-frontend interface.
+
+The backend or console manages program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+
+The frontend made usibg HTML and CSS is still static but at completion will interact
+with these backend interface for a smoother userexperience.
 
 ---
 
 <center><h3>Contents</h3> </center>
-0: AUTHORS file: This a forked repo and all initial ownership rights remains with tge original authors
+0: AUTHORS file: This a forked repo and all initial ownership rights remains with the original authors
+
 
 1: console.py: Initiate the hbnb console and execute commands(See commands below)
 
 
 2: tests/: All unittest for this project.
+
 
 3: webstatic/: Static HTML pages built with HTML and CSS to serve as frontend.7
 
@@ -81,7 +89,7 @@ Usage: create <class_name>
 (hbnb)                   
 ```
 ###### Example 1: Show an object
-Usage: show <class_name> <_id>
+Usage: show <class_name>  <_id>
 
 ```
 (hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
@@ -90,7 +98,7 @@ Usage: show <class_name> <_id>
 (hbnb)  
 ```
 ###### Example 2: Destroy an object
-Usage: destroy <class_name> <_id>
+Usage: destroy <class_name>  <_id>
 ```
 (hbnb) destroy BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
 (hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
@@ -98,16 +106,16 @@ Usage: destroy <class_name> <_id>
 (hbnb)   
 ```
 ###### Example 3: Update an object
-Usage: update <class_name> <_id>
-```
+Usage: update <class_name>  <_id>
+```7
 (hbnb) update BaseModel b405fc64-9724-498f-b405-e4071c3d857f first_name "person"
 (hbnb) show BaseModel b405fc64-9724-498f-b405-e4071c3d857f
 [BaseModel] (b405fc64-9724-498f-b405-e4071c3d857f) {'id': 'b405fc64-9724-498f-b405-e4071c3d857f', 'created_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729889), 
 'updated_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729907), 'first_name': 'person'}
-(hbnb)
+(hbnb)7
 ```
 
-<h3>Advanced Alternative Command Syntax</h3>
+<h3>Advanced Command Syntax</h3>
 
 ###### Example 0: Show all User objects
 Usage: <class_name>.all()
