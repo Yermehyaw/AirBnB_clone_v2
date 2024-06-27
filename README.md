@@ -12,16 +12,16 @@ with these backend interface for a smoother userexperience.
 ---
 
 <center><h3>Contents</h3> </center>
-0: AUTHORS file: This a forked repo and all initial ownership rights remains with the original authors
+0: AUTHORS file: This a forked repo and all initial ownership rights remains with the original authors.
 
 
-1: console.py: Initiate the hbnb console and execute commands(See commands below)
+1: console.py: Initiate the hbnb console and execute commands(See commands below).
 
 
 2: tests/: All unittest for this project.
 
 
-3: webstatic/: Static HTML pages built with HTML and CSS to serve as frontend.7
+3: webstatic/: Static HTML pages built with HTML and CSS to serve as frontend.
 
 ---
 
