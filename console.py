@@ -125,6 +125,28 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         print(new_instance.id)
         storage.save()
+        if kwargs is not None:  # Keyworded args for HBNBCommand() obj
+            for key, value in kwargs.iteritems():
+                if isinstance(value, str): # value must be a string
+                    idx = o
+                    while idx < len(value):  # Looking for any special chars
+                        if value[idx] == '"':  # Special char found at an index
+                            first_half = value[0:idx]  # Split str at that index
+                            second_half = value[idx:]
+                            # Cocatenate strings and escape the spec char
+                            value = new_value
+                        elif value[idx] == '_':  # '_' is also a spec char
+                            value[idx] = ' '  # Replace with a whitespace
+                        idx += 1
+                # A float is also valid
+                elif isinstance(value, float):
+                        unit = int(value)  # Get unit part of the float
+                        decimal = value % 1  # GEt fractional part of the float
+                # A number argument is also acceptable
+                elif isinstance(value, int):
+                    pass  # Probably will be worked with later on
+                else:  # keyword arg is not a str, float or int
+                    pass  # arg is skipped and left as it is (whatever it is.. :) )
 
     def help_create(self):
         """ Help information for the create method """
