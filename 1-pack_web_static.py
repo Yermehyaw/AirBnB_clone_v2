@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# To be used with fab command to archive web_static/ dir files
 
 """
 Modules Imported: datetime
@@ -11,7 +12,7 @@ from datetime import datetime
 
 def do_pack():
     """"
-    Generates a .tgz archive from the contents of ./web_static/ dir using 
+    Generates a .tgz archive from the contents of ./web_static/ dir using
     fabric
 
     Attributes:
@@ -21,10 +22,12 @@ def do_pack():
     Path to the archive if successful, otherwise None
     """
     time = datetime.now
-    time_string = f"{time.year_time.month_time.day_time.hour_time.minute_time.second}"
-    tar_file = run(f"mkdir ./versions && tar -cvf 
-            ./versions/web_static_{time_string}.tar.gz ./web_static/*")
+    time_string = f"{time.year}{time.month}{time.day}\
+{time.hour}{time.minute}{time.second}"
+    tar_file = run(f"mkdir ./versions && tar -cvf\
+ ./versions/web_static_{time_string}.tgz ./web_static/*")
     if tar_file.succeded:
-        return tar_file.path() ###
+        tar_file.stdout
+        return f"./versions/web_static/web_static_{time_string}"  # return path
     else:
         return None
