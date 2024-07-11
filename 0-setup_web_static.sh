@@ -22,7 +22,9 @@ sudo ln -sf /data/web_static/releases/test/ /data/web_static/current  # -f to re
 sudo chown -R "ubuntu":"ubuntu" /data/  # Give file and group ownership to user ubuntu
 
 
-# Edit server block to serve static web content in /current
+# Edit server block to serve static web content in location /hbnb_static
+config_file="/etc/nginx/sites-enabled/$HOSTMANE.conf"
+
 sudo tee -a "$config_file" > /dev/null <<EOF  # write into the nginx default config file
 server {
 	listen 80;
@@ -36,6 +38,12 @@ server {
 }
 
 EOF
+
+# Activate server block if not already previously activated
+if [ -L "/etc/nginx/sites-enabled" ]  # Does sym link exists here
+then
+    sudo ln -s "$config" /etc/nginx/sites-enabled
+fi
 
 # Reload/Start Nginx to apply changes
 sudo nginx -s reload
