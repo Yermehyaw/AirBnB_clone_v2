@@ -30,7 +30,7 @@ def do_pack():
     time = datetime.now()
     time_string = f"{time.year}{time.month}{time.day}\
 {time.hour}{time.minute}{time.second}"
-    tar_file = run(f"mkdir ./versions && tar -cvf\
+    tar_file = local(f"mkdir ./versions && tar -cvf\
  ./versions/web_static_{time_string}.tgz ./web_static/*")
     if tar_file.succeded:
         tar_file.stdout
