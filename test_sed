@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# test sed
+sudo sed -i "s/location \/ {/\tlocation \/current\/ {\n\t\troot \/data\/web_static\/current\/;\n\t\talias hbnb_static\/;\n\t}\n\n\tlocation \/ {/g"  "./new_file"
+# single quotes can be used to prevent any unforseen shell interference on sed. Always ensure tge root and alis direcrives ebd with a / followed by a semicolon.

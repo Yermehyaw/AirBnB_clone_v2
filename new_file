@@ -1,0 +1,6 @@
+	location /current/ {
+		root /data/web_static/current/;
+		alias hbnb_static/;
+	}
+
+	location / {
