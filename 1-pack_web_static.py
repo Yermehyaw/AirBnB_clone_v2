@@ -33,7 +33,6 @@ def do_pack():
     tar_result = local(f"mkdir -p ./versions && tar -cvf\
  ./versions/web_static_{time_string}.tgz ./web_static/*")
     if tar_result.return_code == 0:
-#        tar_result.stdout
         return f"./versions/web_static/web_static_{time_string}"  # return path
     else:
         return None
