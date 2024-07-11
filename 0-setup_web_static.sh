@@ -17,9 +17,9 @@ sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 sudo touch -c  /data/web_static/releases/test/index.html
 sudo chmod -R 755 /data/web_static/releases/test/  # Ensure only admin has write privileges
-echo "Hello World! I'm Web Static!" | sudo tee -a /data/web_static/releases/test/index.html  # Write something to file for testing sake. P.S: The no of Hello World strings in the pseudo webpage is the amoubt of tines this script was ran.
+echo "Hello World! I'm Web Static!" | sudo tee -a /data/web_static/releases/test/index.html  # Write something to file for testing sake. P.S: The no of Hello World strings in the pseudo webpage is the amount of tines this script was ran.
 sudo ln -sf /data/web_static/releases/test/ /data/web_static/current  # -f to remove existing sym link. /current is the sym link referencing /test/ folder
-sudo chown -R ubuntu:ubuntu /data/  # Give file and group ownership to user ubuntu
+sudo chown -R "ubuntu:ubuntu" /data/  # Give file and group ownership to user ubuntu
 
 
 # Edit server block to serve static web content in location /hbnb_static
