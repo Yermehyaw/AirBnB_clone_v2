@@ -31,7 +31,7 @@ sudo sed -i "s/location \/ {/\tlocation \/hbnb_static\/ {\n\t\talias \/data\/web
 
 
 # Activate server block if not already previously activated
-if [ -L "/etc/nginx/sites-enabled" ]  # Does sym link exists here
+if ![ -L "/etc/nginx/sites-enabled" ]  # Does sym link exists here
 then
     sudo ln -s "$config_file" /etc/nginx/sites-enabled/
 fi
