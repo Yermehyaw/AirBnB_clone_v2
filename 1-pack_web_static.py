@@ -30,7 +30,7 @@ def do_pack():
     time = datetime.now()
     time_string = f"{time.year}{time.month}{time.day}\
 {time.hour}{time.minute}{time.second}"
-    tar_result = local(f"mkdir -p ./versions && tar -cvf\
+    tar_result = local(f"mkdir -p ./versions && tar -cvzf\
  ./versions/web_static_{time_string}.tgz ./web_static/*")
     if tar_result.return_code == 0:
         return f"./versions/web_static/web_static_{time_string}"  # return path
