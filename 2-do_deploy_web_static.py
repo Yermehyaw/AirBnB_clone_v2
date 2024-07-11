@@ -3,12 +3,18 @@
 # do_path() function in 0-setup_web_static.sh
 
 """
-Modules Imported: fabric.api
+Modules Imported: fabric.api, os.path
 
 fabric.api: Abstraction of the original fabric. Used for remote and local code
 deployment and sys admin tasks. Streamlines the use of SSH
+
+os.path: Execute shell path commands. The exixts(), basename() and splitext()
+methods are the methods of interest.
 """
-from fabric.api import *  # "pargmatism over best practices" :)
+from os.path import exists
+from os.path import basename
+from os.path import splitext
+from fabric.api import *  # "pragmatism over best practices" :)
 
 
 def do_deploy(archive_path):
@@ -22,18 +28,25 @@ def do_deploy(archive_path):
     Return:
     True, if all operations are completed successfully, otherwise, False
     """
-    archive_name =  # use regex to retrieve only archive name without .tgz extension
-    if [ ]:  # Checks if file dosent exists at archive_path
+    if exists(archive_path):  # Checks if file dosent exists at archive_path
         return False
-    env.hosts = ["54.157.166.142", ""]  # Server's IP addresses
-    env.user = "ubuntu"
-    # Use a with statement to encapsulate all this commands to a remote server?
-    sudo(f"mv {archive_path} /tmp/")  # is a recursive mv needed and does sudo delete at remote or local?
-    run(f"tar --uncompress {archive_path} /data/web_static/releases/{archive_name}")  # the command to uncompress .tgz files is?
-    sudo(f"rm -r {archive_path}")  # delete archive from server
-    sudo(f"rm /data/web_static/current")
-    run("ln -s /data/web_static/releases/{archive_name}")
-    
+    # Retrieve only archive name without .tgz extension
+    name_with_ext = basename(archive_path)
+    archive_name = splitext(name_with_ext)[0]
+    env.hosts = ["54.157.166.142", "18.209.178.215"]  # IP to exec commands in
+    env.user = "ubuntu"  # default user, if none is entered via fab -u
+
+    put(f"mv {archive_path} /tmp/")  # works without sudo
+    sudo(f"mkdir -p /data/web_static/releases/{archive_name}")
+    sudo(f"tar --xzf {archive_path} /data/web_static/releases/{archive_name}/")
+    sudo(f"rm /tmp/{archive_name}")   # delete archive from server
+    sudo(f"mv /data/web_static/releases/{archive_name}/{archive_name}/*
+            /data/web_static/releases/{archive_name}/")
+    sudo(f"rm -rf /data/web_static/releases/
+            {archive_name}/{archive_name}/")  # remove the empty dir
+    sudo(f"rm -rf /data/web_static/current")
+    run("ln -s /data/web_static/releases/{archive_name} /data/")
+
     end = local("echo $?", capture=True)  # Check the exit status after running
     if end.stdout == 0:
         return True
