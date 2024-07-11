@@ -27,7 +27,7 @@ def do_pack():
     Return:
     Path to the archive if successful, otherwise None
     """
-    time = datetime.now
+    time = datetime.now()
     time_string = f"{time.year}{time.month}{time.day}\
 {time.hour}{time.minute}{time.second}"
     tar_file = run(f"mkdir ./versions && tar -cvf\
