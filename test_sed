@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # test sed
-sudo sed -i "s/location \/ {/\tlocation \/current\/ {\n\t\troot \/data\/web_static\/current\/;\n\t\talias hbnb_static\/;\n\t}\n\n\tlocation \/ {/g"  "./new_file"
-# single quotes can be used to prevent any unforseen shell interference on sed. Always ensure tge root and alis direcrives ebd with a / followed by a semicolon.
+sudo sed -i "s/location \/ {/\tlocation \/hbnb_static\/ {\n\t\talias /data/web_static/current\/;\n\t}\n\n\tlocation \/ {/g"  "./new_file"
+# single quotes can be used to prevent any unforseen shell interference on sed. Always ensure the root and alis direcrives ebd with a / followed by a semicolon.
+# an alias was used here mainly for security purposes inorder to obsure the underlying architecture of this page/resource, rather than usubg a root directive which is more revealing of the specific location where the resource is stored.
