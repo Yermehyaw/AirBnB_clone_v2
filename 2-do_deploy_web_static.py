@@ -40,10 +40,10 @@ def do_deploy(archive_path):
     sudo(f"mkdir -p /data/web_static/releases/{archive_name}")
     sudo(f"tar --xzf /tmp/{archive_path} /data/web_static/releases/{archive_name}/")
     sudo(f"rm /tmp/{archive_name}")   # delete archive from server
-    sudo(f"mv /data/web_static/releases/{archive_name}/{archive_name}/*
-            /data/web_static/releases/{archive_name}/")
-    sudo(f"rm -rf /data/web_static/releases/
-            {archive_name}/{archive_name}/")  # remove the empty dir
+#    sudo(f"mv /data/web_static/releases/{archive_name}/{archive_name}/*
+#            /data/web_static/releases/{archive_name}/")
+#    sudo(f"rm -rf /data/web_static/releases/
+#            {archive_name}/{archive_name}/")  # remove the empty dir
     sudo(f"rm -rf /data/web_static/current")
     run("ln -s /data/web_static/releases/{archive_name} /data/")
 
