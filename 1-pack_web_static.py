@@ -10,11 +10,12 @@ Also including remote and local shells interaction
 datetime: Package conatins several modules to track and return time
 (even timezones). Used to get current time when script is executed
 """
-import fabric
+from fabric import task
+from fabric.api import rub
 from datetime import datetime
 
 
-@fabric.task  # Fabric task identifier, to indicate its a fabric task
+@task  # Fabric task identifier, to indicate its a fabric task
 def do_pack():
     """"
     Generates a .tgz archive from the contents of ./web_static/ dir using
@@ -29,7 +30,7 @@ def do_pack():
     time = datetime.now
     time_string = f"{time.year}{time.month}{time.day}\
 {time.hour}{time.minute}{time.second}"
-    tar_file = fabric.api.run(f"mkdir ./versions && tar -cvf\
+    tar_file = run(f"mkdir ./versions && tar -cvf\
  ./versions/web_static_{time_string}.tgz ./web_static/*")
     if tar_file.succeded:
         tar_file.stdout
