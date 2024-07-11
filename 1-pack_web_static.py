@@ -2,20 +2,20 @@
 # To be used with fab command to archive web_static/ dir files
 
 """
-Modules Imported: fabric, datetime
+Modules Imported: fabric.api, datetime
 
-fabric: Automate upload and download, connection and deployment of code.
-Also including remote and local shells interaction
+fabric.api: Automate upload and download, connection and deployment of code.
+Also including remote and local shells interaction all via ssh. 
+fabric.api is an abstraction of the origonal fabric. 
+7It is fabric v1.14.post1 also known as fabric3
 
 datetime: Package conatins several modules to track and return time
 (even timezones). Used to get current time when script is executed
 """
-from fabric import task
-from fabric.api import rub
+from fabric.api import *  # Not good, yet "pragmatism overides best practices"
 from datetime import datetime
 
 
-@task  # Fabric task identifier, to indicate its a fabric task
 def do_pack():
     """"
     Generates a .tgz archive from the contents of ./web_static/ dir using
