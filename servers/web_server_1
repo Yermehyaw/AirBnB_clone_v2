@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Connecta to the load baalncer server
+ssh ubuntu@54.157.166.142
