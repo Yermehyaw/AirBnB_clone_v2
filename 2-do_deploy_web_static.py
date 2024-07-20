@@ -36,11 +36,13 @@ def do_deploy(archive_path):
     env.hosts = ["54.157.166.142", "18.209.178.215"]  # IP to exec commands in
     env.user = "ubuntu"  # default user, if none is entered via fab -u
 
-    put(f"mv {archive_path} /tmp/")  # works without sudo. Check if /tmp is available in target web server. Create tmp at target web server with sudo() and -p flag
+    # Fabric commands
+    sudo("mkdir -p /tmp/")  # create target dir if it dosent exist
+    put(f"mv -f {archive_path} /tmp/")  # works without sudo.
     sudo(f"mkdir -p /data/web_static/releases/{archive_name}/")
-    sudo(f"tar -xzf /tmp/{archive_path} /data/web_static/releases/{archive_name}/")  # how does tar uncompress a file? into a folder bearing the same archive name or the constituent files are just littered into the designated dir?
-    sudo(f"rm /tmp/{archive_name}")   # delete archive from server
-    sudo(f"rm -rf /data/web_static/current")  # delete previous sum link at  /current
+    sudo(f"tar -xzf /tmp/{archive_path} /data/web_static/releases/{archive_name}/")
+    sudo(f"rm -rf /tmp/{archive_name}/")   # delete archive from server
+    sudo(f"rm -f /data/web_static/current")  # delete previous sum link at  /current
     sudo(f"touch /data/web_static/current")  # recreate /current file for sym link
     sudo("ln -sf /data/web_static/releases/{archive_name}/ /data/web_static/current")  # link archive folder to /current file
 
