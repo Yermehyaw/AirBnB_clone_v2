@@ -31,21 +31,22 @@ def do_deploy(archive_path):
     if exists(archive_path):  # Checks if file dosent exists at archive_path
         return False
     # Retrieve only archive name without .tgz extension
-    name_with_ext = basename(archive_path)
-    archive_name = splitext(name_with_ext)[0]
+    name_with_ext = basename(archive_path)  #remove path 
+    archive_name = splitext(name_with_ext)[0]  # remove file extension from file name
     env.hosts = ["54.157.166.142", "18.209.178.215"]  # IP to exec commands in
     env.user = "ubuntu"  # default user, if none is entered via fab -u
 
-    put(f"mv {archive_path} /tmp/")  # works without sudo
+    put(f"mv {archive_path} /tmp/")  # works without sudo. Check if /tmp is available in target web server. Create tmp at target web server with sudo() and -p flag
     sudo(f"mkdir -p /data/web_static/releases/{archive_name}")
-    sudo(f"tar --xzf /tmp/{archive_path} /data/web_static/releases/{archive_name}/")
+    sudo(f"tar --xzf /tmp/{archive_path} /data/web_static/releases/{archive_name}/")  # how does tar uncompress a file? into a folder bearing the same archive name or the constituent files are just littered into the designated dir?
     sudo(f"rm /tmp/{archive_name}")   # delete archive from server
 #    sudo(f"mv /data/web_static/releases/{archive_name}/{archive_name}/*
 #            /data/web_static/releases/{archive_name}/")
 #    sudo(f"rm -rf /data/web_static/releases/
 #            {archive_name}/{archive_name}/")  # remove the empty dir
     sudo(f"rm -rf /data/web_static/current")
-    run("ln -s /data/web_static/releases/{archive_name} /data/")
+    sudo(f"touch /data/web_static/current")  # recreate /current file for sym link
+    sudo("ln -sf /data/web_static/releases/{archive_name}/ /data/web_static/current")  # link archive folder to /current file
 
     end = local("echo $?", capture=True)  # Check the exit status after running
     if end.stdout == 0:
