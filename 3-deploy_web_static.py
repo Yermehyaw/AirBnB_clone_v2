@@ -13,8 +13,8 @@ returns False if unsuccessful
 """
 from fabric.api import *  # 'pragmaticsm over best practice'
 from os.path import exists
-do_pack = __import__('1-pack_web_static.do_pack')
-do_deploy = __import__('2-do_deploy_web_static.do_deploy')
+pack = __import__('1-pack_web_static')
+deploy = __import__('2-do_deploy_web_static')
 
 env.hosts = ['54.157.166.142', '18.209.178.215']
 env.user = "ubuntu"
@@ -31,9 +31,9 @@ def deploy():
     True if it succesful calls all imported functions and ran successfully,
     otherwise, False
     """
-    archive_path = do_pack()
+    archive_path = pack.do_pack()
     if not exists(archive):
         return False
     else:
-        status = do_deploy(archive_path)
+        status = deploy.do_deploy(archive_path)
         return status
