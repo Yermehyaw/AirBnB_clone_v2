@@ -16,6 +16,9 @@ from os.path import basename
 from os.path import splitext
 from fabric.api import *  # "pragmatism over best practices" :)
 
+# hosts and user variables must be defined outside the function in a fabfile
+env.hosts = ['54.157.166.142', '18.209.178.215']  # IP to exec commands in
+env.user = "ubuntu"  # default user, if none is entered via fab -u
 
 def do_deploy(archive_path):
     """"
@@ -32,8 +35,6 @@ def do_deploy(archive_path):
         return False
     name_with_ext = basename(archive_path)  # retrieve only archive name with .tgz extension
     archive_name = splitext(name_with_ext)[0]  # remove file extension from file name
-    env.hosts = ["54.157.166.142", "18.209.178.215"]  # IP to exec commands in
-    env.user = "ubuntu"  # default user, if none is entered via fab -u
 
     # Fabric commands
     sudo("mkdir -p /tmp/")  # create target dir if it dosent exist
@@ -45,7 +46,7 @@ def do_deploy(archive_path):
     sudo(f"touch /data/web_static/current")  # recreate /current file for sym link
     sudo("ln -sf /data/web_static/releases/{archive_name}/ /data/web_static/current")  # link archive folder to /current file
 
-    end = run("echo $?", capture=True)  # Check the exit status after running
+    end = run("echo $?")  # Check the exit status after running
     if end.stdout == 0:
         return True
     else:
