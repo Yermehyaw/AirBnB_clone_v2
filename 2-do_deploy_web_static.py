@@ -36,18 +36,17 @@ def do_deploy(archive_path):
     name_with_ext = basename(archive_path)  # retrieve only archive name with .tgz extension
     archive_name = splitext(name_with_ext)[0]  # remove file extension from file name
 
-    # Fabric commands
-    sudo("mkdir -p /tmp/")  # create target dir if it dosent exist
-    put(archive_path, "/tmp/")  # works without sudo.
-    sudo(f"mkdir -p /data/web_static/releases/{archive_name}/")
-    sudo(f"tar -xzf /tmp/{name_with_ext} -C /data/web_static/releases/{archive_name}/")
-    sudo(f"rm -rf /tmp/{name_with_ext}/")   # delete archive from server
-    sudo(f"rm -f /data/web_static/current")  # delete previous sum link at  /current
-    sudo(f"touch /data/web_static/current")  # recreate /current file for sym link
-    sudo("ln -sf /data/web_static/releases/{archive_name}/ /data/web_static/current")  # link archive folder to /current file
-
-    end = run("echo $?")  # Check the exit status after running
-    if end.stdout == 0:
+    try:
+        # Fabric commands
+        sudo("mkdir -p /tmp/")  # create target dir if it dosent exist
+        put(archive_path, "/tmp/")  # works without sudo.
+        sudo(f"mkdir -p /data/web_static/releases/{archive_name}/")
+        sudo(f"tar -xzf /tmp/{name_with_ext} -C /data/web_static/releases/{archive_name}/")
+        sudo(f"rm -rf /tmp/{name_with_ext}/")   # delete archive from server
+        sudo(f"rm -f /data/web_static/current")  # delete previous sum link at  /current
+        sudo(f"touch /data/web_static/current")  # recreate /current file for sym link
+        sudo("ln -sf /data/web_static/releases/{archive_name}/ /data/web_static/current")  # link archive folder to /current file
+        print("New version deployed!")
         return True
-    else:
+    except Exception:
         return False
