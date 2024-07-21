@@ -20,6 +20,7 @@ from fabric.api import *  # "pragmatism over best practices" :)
 env.hosts = ['54.157.166.142', '18.209.178.215']  # IP to exec commands in
 env.user = "ubuntu"  # default user, if none is entered via fab -u
 
+
 def do_deploy(archive_path):
     """"
     Distributes an archive to web servers. Kindly change the server
@@ -31,10 +32,14 @@ def do_deploy(archive_path):
     Return:
     True, if all operations are completed successfully, otherwise, False
     """
-    if not exists(archive_path):  # Checks if file dosent exists at archive_path
+    if not exists(archive_path):  # Checks if archive exists at archive_path
         return False
-    name_with_ext = basename(archive_path)  # retrieve only archive name with .tgz extension
-    archive_name = splitext(name_with_ext)[0]  # remove file extension from file name
+
+    # retrieve only archive name with its.tgz extension
+    name_with_ext = basename(archive_path)
+
+    # remove file extension from file name
+    archive_name = splitext(name_with_ext)[0]
 
     try:
         # Fabric commands
@@ -45,7 +50,7 @@ def do_deploy(archive_path):
  /data/web_static/releases/{archive_name}/")
         sudo(f"rm -rf /tmp/{name_with_ext}/")   # delete archive from server
         sudo(f"rm -f /data/web_static/current")  # delete previous sum link
-        sudo(f"touch /data/web_static/current")  # recreate file for new sym link
+        sudo(f"touch /data/web_static/current")  # same file for new sym link
         sudo("ln -sf /data/web_static/releases/{archive_name}/ \
 /data/web_static/current")  # link archive folder to /current file
         print("New version deployed!")
