@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Modules Imported: fabric.api, os.exists, 1-pack_wrb_static,
+Modules Imported: fabric.api, os.path.exists, 1-pack_wrb_static,
 2-do_deploy_web_static
 
 fabric.api: code deployment tools via ssh
@@ -12,9 +12,9 @@ server. Returns the path to the archive as a string
 returns False if unsuccessful
 """
 from fabric.api import *  # 'pragmaticsm over best practice'
-from os import exists
+from os.path import exists
 do_pack = __import__('1-pack_web_static.do_pack')
-do_deploy = __import__('2-do_deploy_web_static')
+do_deploy = __import__('2-do_deploy_web_static.do_deploy')
 
 env.hosts = ['54.157.166.142', '18.209.178.215']
 env.user = "ubuntu"
