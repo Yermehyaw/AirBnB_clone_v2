@@ -13,8 +13,8 @@ returns False if unsuccessful
 """
 from fabric.api import *  # 'pragmaticsm over best practice'
 from os import exists
-from 1-pack_web_static import do_pack
-from 2-do_deploy_web_static import do_deploy
+do_pack = __import__('1-pack_web_static.do_pack')
+do_deploy = __import__('2-do_deploy_web_static')
 
 env.hosts = ['54.157.166.142', '18.209.178.215']
 env.user = "ubuntu"
