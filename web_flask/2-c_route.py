@@ -51,6 +51,10 @@ def hbnb_text(text):
     Return:
     A string with routing text to webpage
     """
+    for c in text:
+        if c == "_":
+            c = " "
+    print(text)
     return f"C {escape(text)}"
 
 
