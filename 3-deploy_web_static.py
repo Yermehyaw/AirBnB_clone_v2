@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Modules Imported: fabric.api, os.exists, 1-pack_wrb_static,
+Modules Imported: fabric.api, os.path.exists, 1-pack_wrb_static,
 2-do_deploy_web_static
 
 fabric.api: code deployment tools via ssh
@@ -12,28 +12,29 @@ server. Returns the path to the archive as a string
 returns False if unsuccessful
 """
 from fabric.api import *  # 'pragmaticsm over best practice'
-from os import exists
-do_pack = __import__('1-pack_web_static.do_pack')
-do_deploy = __import__('2-do_deploy_web_static')
+from os.path import exists
+#pack = __import__('1-pack_web_static')
+#deploy = __import__('2-do_deploy_web_static')
 
 env.hosts = ['54.157.166.142', '18.209.178.215']
 env.user = "ubuntu"
+env.key_filename = '~/.ssh/id_rsa'
 
 
 def deploy():
     """
-    Deploy a webpage to remote servers
+    A function in this fabfile used to deploy a webpage to remote servers
 
     Args:
     None
 
     Return:
-    True if it succesful calls all imported functions and ran successfully,
-    otherwise, False
+    The return value of another executed fabfile
     """
-    archive_path = do_pack()
-    if not exists(archive):
+    archive_path = local("fab -f 1-pack_web_static.py do_pack", capture=True)
+    if not exists(archive_path):
         return False
     else:
-        status = do_deploy(archive_path)
+        status = local("fab -f 2-do_deploy_web_static.py\
+ do_deploy:archive_path={archive_path}", capture=True)
         return status
