@@ -23,7 +23,7 @@ def do_clean(number=0):
     None
     """
     if number == 0 or number == 1:
-        run("ls -1t | awk 'NR>1' | xargs -d '\n' rm -i")
+        run("ls -1t | awk 'NR>1' | xargs -d '\n' rm -i")  # remove -i at yr iwn rusk
     else if number == 2:
         run("ls -1t | awk 'NR>2' | xargs -d '\n' rm -i")
     else
