@@ -14,8 +14,7 @@ methods are the methods of interest.
 from os.path import exists
 from os.path import basename
 from os.path import splitext
-from fabric.api import sudo
-from fabric.api import put
+from fabric.api import *  # pragmatism over best practice
 
 # hosts and user variables must be defined outside the function in a fabfile
 env.hosts = ['54.157.166.142', '18.209.178.215']  # IP to exec commands in
