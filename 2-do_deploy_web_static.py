@@ -14,7 +14,8 @@ methods are the methods of interest.
 from os.path import exists
 from os.path import basename
 from os.path import splitext
-from fabric.api import *  # "pragmatism over best practices" :)
+from fabric.api import sudo
+from fabric.api import put
 
 # hosts and user variables must be defined outside the function in a fabfile
 env.hosts = ['54.157.166.142', '18.209.178.215']  # IP to exec commands in
@@ -51,7 +52,7 @@ def do_deploy(archive_path):
         sudo(f"rm -rf /tmp/{name_with_ext}/")   # delete archive from server
         sudo(f"rm -f /data/web_static/current")  # delete previous sum link
         sudo(f"touch /data/web_static/current")  # same file for new sym link
-        sudo("ln -sf /data/web_static/releases/{archive_name}/ \
+        sudo("ln -sf -t /data/web_static/releases/{archive_name}/ \
 /data/web_static/current")  # link archive folder to /current file
         print("New version deployed!")
         return True
