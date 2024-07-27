@@ -8,7 +8,7 @@ fabric.api: execute bash commands via ssh
 from fabric.api import run
 
 
-env.hosts = ['', '']
+env.hosts = ['54.157.166.142', '18.209.178.215']
 env.user = "ubuntu"
 
 
