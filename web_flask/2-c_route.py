@@ -47,14 +47,30 @@ def c_text(text):
 
     Args:
     text(str): routing text
+    
+    Decription:
+    A more advanced methid of chnging URL underscores
+    to whitespaces would be:
+
+    from werkzeug.routing import BaseConverter
+    class = UnderscoreConverter(BaseConverter):
+        def remove_underscores(self, value):
+            return value.replace('_', ' ')
+    app.url_map.converters['underscore'] = UnderscoreConverter
+    
+    @app.route('/c/<underscore: text>', strict_slashes=False)
+    def c_text:
+    . . . 
+
 
     Return:
     A string with routing text to webpage
     """
-    for c in text:
-        if c == "_":
-            c = " "
-    print(text)
+    i = 0
+    while i < len(text):  #/remove undercores
+        if text[i] == '_':
+            text[i] == ' '
+        i += 1
     return f"C {escape(text)}"
 
 
