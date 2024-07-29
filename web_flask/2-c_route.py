@@ -41,7 +41,7 @@ def hbnb():
 
 
 @app.route("/c/<text>", strict_slashes=False)
-def hbnb_text(text):
+def c_text(text):
     """
     Return a string ising routing text
 
