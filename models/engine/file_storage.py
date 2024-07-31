@@ -48,3 +48,8 @@ class FileStorage:
                         self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+
+    def close(self):
+        """Cleanup by deserializing JSON files to objects"""
+        reload()
