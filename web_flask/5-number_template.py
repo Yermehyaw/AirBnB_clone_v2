@@ -97,7 +97,7 @@ def number_template_page(n):
     Return:
     A html page from  a rendered jinja2 template
     """
-    return render_template("5-nunber.html", n=n)
+    return render_template("5-number.html", n=n)
 
 
 if __name__ == "__main__":
