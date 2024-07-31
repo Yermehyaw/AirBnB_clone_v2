@@ -56,10 +56,11 @@ def c_text(text):
     return f"C {escape(no_underscore)}"
 
 
+@app.route("/python/", defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def py_text(text):
     """
-    Return a string uaing the routing text/url path
+    Return a string using a  specified routing text/url path
 
     text(str): routing text
 
