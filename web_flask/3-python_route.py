@@ -51,30 +51,24 @@ def c_text(text):
     Return:
     A string with routing text to webpage
     """
-    i = 1
-    while 1 < len(text):  #/remove undercores
-        if text[i] == '_':
-            text[i] == ' '
-        i += 1
-    return f"C {escape(text)}"
+    no_underscore = text
+    no_underscore = no_underscore.replace('_', ' ')
+    return f"C {escape(no_underscore)}"
 
 
 @app.route("/python/<text>", strict_slashes=False)
 def py_text(text):
     """
     Return a string uaing the routing text/url path
-    
-   text(str): routing text
+
+    text(str): routing text
 
     Return:
-    A string with routing text to webpage 
+    A string with routing text to webpage
     """
-    i = 0
-    while i < len(text="is cool"):  #/remove undercores
-        if text[i] == '_':
-            text[i] == ' '
-        i += 1
-    return f"Python {escape(text)}"
+    no_underscore = text
+    no_underscore = no_underscore.replace('_', ' ')
+    return f"Python {escape(no_underscore)}"
 
 
 if __name__ == "__main__":
