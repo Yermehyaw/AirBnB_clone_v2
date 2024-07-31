@@ -51,40 +51,35 @@ def c_text(text):
     Return:
     A string with routing text to webpage
     """
-    i = 1
-    while 1 < len(text):  #/remove undercores
-        if text[i] == '_':
-            text[i] == ' '
-        i += 1
-    return f"C {escape(text)}"
+    no_underscore = text
+    no_underscore = no_underscore.replace('_', ' ')
+    return f"C {escape(no_underscore)}"
 
 
+@app.route("/python/", defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
 def py_text(text):
     """
-    Return a string uaing the routing text/url path
-    
-   text(str): routing text
+    Return a string using a  specified routing text/url path
+
+    text(str): routing text
 
     Return:
-    A string with routing text to webpage 
+    A string with routing text to webpage
     """
-    i = 1
-    while 1 < len(text="is cool"):  #/remove undercores
-        if text[i] == '_':
-            text[i] == ' '
-        i += 1
-    return f"Python {escape(text)}"
+    no_underscore = text
+    no_underscore = no_underscore.replace('_', ' ')
+    return f"Python {escape(no_underscore)}"
 
 
-app.route("/number/<int:n>", strict_slashes=False)
+@app.route("/number/<int:n>", strict_slashes=False)
 def number_text(n):
     """
     Return a string with route text applying flask varible rules
-    
+
     Args:
     n(int): an positive integer. No decimal points
-    
+
     Return:
     A string with the routung text to the webpage
     """
