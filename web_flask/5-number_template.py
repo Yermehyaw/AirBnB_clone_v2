@@ -5,7 +5,7 @@ Modules Imported: flask, escape
 flask: web frameworking model
 escape: escpe HTML string passed to webpage to prevent injection attacks
 """
-from flask import Flask
+from flask import Flask, render_template
 from markupsafe import escape
 
 
